@@ -15,6 +15,7 @@ export class Graph {
   private outerMoveRange: number;
   private colorFrom: p5.Color;
   private colorTo: p5.Color;
+  private mouseOffset: p5.Vector;
   public constructor(p: p5, postion: p5.Vector) {
     this.p = p;
     this.pos = postion;
@@ -35,13 +36,17 @@ export class Graph {
     // console.log(this.centerPoints);
   }
   public update(): void {
+    this.mouseOffset = this.p.createVector(
+      this.p.mouseX - this.p.width / 2,
+      this.p.mouseY - this.p.height / 2,
+    );
     this.p.noiseDetail(1.5, 0.6);
     const xxo = this.p.noise(this.p.frameCount / 100) * this.xMoveRange;
     const xyo = this.p.noise(this.p.frameCount / 100 + 100) * this.xMoveRange;
     for (let i = 0; i < this.centerPoints.length; i++) {
       const pos = this.p.createVector(
-        xxo - this.xMoveRange / 2,
-        xyo - this.xMoveRange / 2,
+        xxo - this.xMoveRange / 2 + this.mouseOffset.x,
+        xyo - this.xMoveRange / 2 + this.mouseOffset.y,
       );
       this.centerOffset[i] = pos;
     }
@@ -93,6 +98,7 @@ export class Graph {
         this.drawShape(pp);
       },
     );
+
     this.p.fill(this.colorFrom);
     this.p.beginShape();
     cp.forEach(

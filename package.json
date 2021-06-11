@@ -6,6 +6,7 @@
     "start": "webpack-dev-server --host 0.0.0.0",
     "lint": "eslint --ext .ts,.tsx -c ./.eslintrc.js ./src"
   },
+  "homepage": ".",
   "devDependencies": {
     "@types/p5": "0.7.2",
     "@typescript-eslint/eslint-plugin": "1.7.0",
